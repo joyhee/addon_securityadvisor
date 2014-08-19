@@ -269,7 +269,8 @@ sub _cloudlinux_symlink_protection {
     chomp( $sysctl_fs_enforce_symlinksifowner, $sysctl_fs_symlinkown_gid );
 
     if ( -x '/usr/sbin/cagefsctl' ) {
-        my $uncaged_user_count = split( /\n/, Cpanel::SafeRun::Simple::saferun( '/usr/sbin/cagefsctl', '--list-disabled' ) );
+        my $uncaged_user_count = split( /\n/, Cpanel::SafeRun::Simple::saferun( '/usr/sbin/cagefsctl', '--list-disabled' ) ) ;
+        $uncaged_user_count--;
         if ( $uncaged_user_count > 0 ) {
             $security_advisor_obj->add_advice(
                 {
